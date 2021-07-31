@@ -40,7 +40,7 @@ async fn main() -> Result<(), kube::Error> {
 
 
     let lp = ListParams::default().fields("metadata.name=dc1").timeout(20);
-    let mut stream = dcs.watch(&lp, "0").await?;
+    let mut stream = dcs.watch(&lp, "0").await?.boxed();
 
     while let Some(status) = stream.try_next().await? {
     }
